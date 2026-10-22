@@ -14,6 +14,10 @@ config/name="Polygon26ZSwiatlo"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SceneSwitcher="*uid://u6iav443pf4t"
+
 [display]
 
 window/stretch/mode="canvas_items"
