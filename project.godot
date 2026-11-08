@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Polygon26ZSwiatlo"
+run/main_scene="uid://bb5wnqwbxk57d"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -23,12 +24,17 @@ SceneSwitcher="*uid://u6iav443pf4t"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[global_group]
+
+EnemyTarget=""
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

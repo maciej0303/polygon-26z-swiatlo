@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyMovementPattern" format=3 uid="uid://chx4833p8yrs3"]
+
+[ext_resource type="Script" uid="uid://dhy848m7g4pj2" path="res://Enemies/Structure/MovementPatterns/enemy_movement_pattern.gd" id="1_yigff"]
+
+[sub_resource type="Curve" id="Curve_g53k5"]
+_data = [Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_etlyl"]
+
+[sub_resource type="Curve" id="Curve_fna47"]
+
+[resource]
+script = ExtResource("1_yigff")
+speed = 0.2
+xz_plane = SubResource("Curve_etlyl")
+yz_plane = SubResource("Curve_fna47")
+speed_curve = SubResource("Curve_g53k5")
+metadata/_custom_type_script = "uid://dhy848m7g4pj2"

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EnemyMovementPattern" format=3 uid="uid://gbdpfb5emevn"]
+
+[ext_resource type="Script" uid="uid://dhy848m7g4pj2" path="res://Enemies/Structure/MovementPatterns/enemy_movement_pattern.gd" id="1_tctp8"]
+
+[sub_resource type="Curve" id="Curve_tctp8"]
+_data = [Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_ombfg"]
+_limits = [-4.0, 4.0, 0.0, 1.0]
+_data = [Vector2(0, -0.020689607), 0.0, 0.0, 0, 0, Vector2(0.07167235, 1.9586208), 0.0, 0.0, 0, 0, Vector2(0.1672355, -1.9034481), 0.0, 0.0, 0, 0, Vector2(0.2764505, 4), 0.0, 0.0, 0, 0, Vector2(0.39590442, -3.8344827), 0.0, 0.0, 0, 0, Vector2(0.4982935, 1.2413793), 0.0, 0.0, 0, 0, Vector2(0.61433446, -1.517241), 0.0, 0.0, 0, 0, Vector2(0.7474402, 1.1862068), 0.0, 0.0, 0, 0, Vector2(0.92150164, -4), 0.0, 0.0, 0, 0, Vector2(1, -0.006896496), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_1cmyt"]
+
+[resource]
+script = ExtResource("1_tctp8")
+speed = 0.2
+xz_plane = SubResource("Curve_ombfg")
+yz_plane = SubResource("Curve_1cmyt")
+speed_curve = SubResource("Curve_tctp8")
+metadata/_custom_type_script = "uid://dhy848m7g4pj2"

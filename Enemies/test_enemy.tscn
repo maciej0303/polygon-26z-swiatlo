@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://cjea2s12hnuwu"]
+
+[ext_resource type="Script" uid="uid://ca1s6grh88g6h" path="res://Enemies/Structure/enemy.gd" id="1_tsyqh"]
+[ext_resource type="Shader" uid="uid://hfd6jw1l3j8f" path="res://Enemies/Structure/Mesh/burn_whole.gdshader" id="2_8fnaj"]
+[ext_resource type="Script" uid="uid://dhy848m7g4pj2" path="res://Enemies/Structure/MovementPatterns/enemy_movement_pattern.gd" id="2_ffrie"]
+[ext_resource type="Texture2D" uid="uid://cdef7svr6p5ii" path="res://icon.svg" id="3_ffrie"]
+[ext_resource type="Script" uid="uid://dtpyica68m66g" path="res://Enemies/Structure/Mesh/enemy_mesh.gd" id="4_8fnaj"]
+
+[sub_resource type="Curve" id="Curve_ffrie"]
+_limits = [-2.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, -0.014285684), 0.0, 0.0, 0, 0, Vector2(0.1484099, 2), 0.0, 0.0, 0, 0, Vector2(0.28621906, -2), 0.0, 0.0, 0, 0, Vector2(0.56537104, 2), 0.0, 0.0, 0, 0, Vector2(0.639576, -2), 0.0, 0.0, 0, 0, Vector2(1, 0.04285717), 0.0, 0.0, 0, 0]
+point_count = 6
+
+[sub_resource type="Curve" id="Curve_br3nj"]
+_limits = [0.0, 5.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4664311, 3.1785717), 22.019136, 22.019136, 0, 0, Vector2(0.81272095, 5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Resource" id="Resource_8fnaj"]
+script = ExtResource("2_ffrie")
+speed = 11.075
+xz_plane = SubResource("Curve_ffrie")
+yz_plane = SubResource("Curve_br3nj")
+metadata/_custom_type_script = "uid://dhy848m7g4pj2"
+
+[sub_resource type="Gradient" id="Gradient_br3nj"]
+offsets = PackedFloat32Array(0, 0.56904763)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0.95000005, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nd1ib"]
+gradient = SubResource("Gradient_br3nj")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ytxn2"]
+frequency = 0.002
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hdd37"]
+noise = SubResource("FastNoiseLite_ytxn2")
+seamless = true
+seamless_blend_skirt = 0.45
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oy8pt"]
+render_priority = 0
+shader = ExtResource("2_8fnaj")
+shader_parameter/texture_albedo = ExtResource("3_ffrie")
+shader_parameter/gradient = SubResource("GradientTexture1D_nd1ib")
+shader_parameter/noise = SubResource("NoiseTexture2D_hdd37")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_16d1p"]
+orientation = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_16d1p"]
+size = Vector3(2, 2, 0.1)
+
+[node name="Enemy" type="Area3D" unique_id=1029674069 node_paths=PackedStringArray("mesh")]
+script = ExtResource("1_tsyqh")
+mesh = NodePath("MeshInstance3D")
+movement_pattern = SubResource("Resource_8fnaj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=739996270]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("ShaderMaterial_oy8pt")
+instance_shader_parameters/destroy_progress = 0.0
+instance_shader_parameters/progress = 0.0
+mesh = SubResource("PlaneMesh_16d1p")
+script = ExtResource("4_8fnaj")
+tex = ExtResource("3_ffrie")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1394123276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_16d1p")
