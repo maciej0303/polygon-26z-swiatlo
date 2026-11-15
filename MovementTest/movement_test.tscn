@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://ci62q7ag51g0d" path="res://Items/Molotov/molotov_on_hit.tscn" id="10_ojbi6"]
 [ext_resource type="Shader" uid="uid://kqyw3tgeb412" path="res://MovementTest/Player/vignette.gdshader" id="10_r4mkw"]
 [ext_resource type="Script" uid="uid://ccdp4v2ekah2g" path="res://MovementTest/Player/hurt_vignette.gd" id="11_etlyl"]
+[ext_resource type="Shader" uid="uid://dtuehncgrk64w" path="res://MovementTest/color_reduce.gdshader" id="16_dpkva"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bsvsu"]
 sky_top_color = Color(0.1612, 0.22320001, 0.31, 1)
@@ -140,6 +141,19 @@ shader_parameter/roughness = 0.7670000364325
 shader_parameter/pulse_speed = 0.54000002565
 shader_parameter/pulse_amount = 0.174000008265
 shader_parameter/max_alpha = 0.274000013015
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_16d1p"]
+shader = ExtResource("16_dpkva")
+shader_parameter/effect_strength = 1.0
+shader_parameter/gamma_adjust = 2.2
+shader_parameter/desired_screen_width = 480.00002204
+shader_parameter/dither_strength = 0.005
+shader_parameter/posterize_luma_levels = 18.890000849775
+shader_parameter/color_grad_shadows = Color(0, 0.25, 0.25, 1)
+shader_parameter/color_grad_midtones = Color(0.5, 0, 0.5, 1)
+shader_parameter/color_grad_lights = Color(1, 1, 0, 1)
+shader_parameter/color_grad_midpoint = 0.25
+shader_parameter/color_grad_strength = 0.25
 
 [node name="MovementTest" type="Node3D" unique_id=154448792]
 metadata/_edit_lock_ = true
@@ -292,6 +306,7 @@ mesh = SubResource("PlaneMesh_p7plr")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=498572189 node_paths=PackedStringArray("base_collider")]
 material = SubResource("ShaderMaterial_ogpyc")
+instance_shader_parameters/size = 0.0
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -299,3 +314,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("11_etlyl")
 base_collider = NodePath("../../Floor/Spawner/EnemyTarget/BaseCollider")
+
+[node name="PixelDitherShader" type="ColorRect" parent="CanvasLayer" unique_id=2098464932]
+material = SubResource("ShaderMaterial_16d1p")
+use_parent_material = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
