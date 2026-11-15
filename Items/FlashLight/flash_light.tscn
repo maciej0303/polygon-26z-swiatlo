@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://qsnmf21j2uk6"]
 
 [ext_resource type="Shader" uid="uid://07y5p1txjja6" path="res://MovementTest/light_trail.gdshader" id="1_n5jqa"]
-[ext_resource type="Script" uid="uid://b37u7foa1ior6" path="res://MovementTest/FlashLight/flash_light.gd" id="1_ve2u7"]
+[ext_resource type="Script" uid="uid://b37u7foa1ior6" path="res://Items/FlashLight/flash_light.gd" id="1_ve2u7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1lu3o"]
 render_priority = 0

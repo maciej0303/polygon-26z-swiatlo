@@ -52,6 +52,7 @@ orientation = 2
 size = Vector3(2, 2, 0.1)
 
 [node name="Enemy" type="Area3D" unique_id=1029674069 node_paths=PackedStringArray("mesh")]
+collision_mask = 2
 script = ExtResource("1_tsyqh")
 mesh = NodePath("MeshInstance3D")
 movement_pattern = SubResource("Resource_8fnaj")

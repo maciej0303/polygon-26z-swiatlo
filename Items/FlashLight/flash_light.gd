@@ -26,14 +26,15 @@ func _physics_process(delta: float) -> void:
 		if not shape_cast_3d.is_colliding():  break
 		var c:Object = shape_cast_3d.get_collider(0)
 		if c is Enemy:
-			var dmg:DamageContext = DamageContext.new()
-			dmg.radius = radius
-			dmg.point = shape_cast_3d.get_collision_point(0)
-			dmg.normal = shape_cast_3d.get_collision_normal(0)
+			var point:Vector3 = shape_cast_3d.get_collision_point(0)
+			#dmg.radius = radius
+			#dmg.point = shape_cast_3d.get_collision_point(0)
+			#dmg.normal = shape_cast_3d.get_collision_normal(0)
 			
-			var dist:float = 1.0 - global_position.distance_to(dmg.point) / dmg_range
-			dmg.strength = curr_strength * delta * ease(dist, distance_strength_fade)
-			#print(ease(dist, distance_strength_fade))
+			var dist:float = 1.0 - global_position.distance_to(point) / dmg_range
+			var strngth:float = curr_strength * delta * ease(dist, distance_strength_fade)
+			
+			var dmg:DamageContext = DamageContext.new_light(strngth)
 			c.damage(dmg)
 			
 			curr_strength *= piercing_dmg_loss

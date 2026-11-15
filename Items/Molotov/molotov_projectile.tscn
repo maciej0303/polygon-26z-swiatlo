@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://bq2xlqxa7ca08"]
+
+[ext_resource type="Script" uid="uid://bjsvbv5sif78q" path="res://Items/Projectile/projectile.gd" id="1_hvxbs"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_nd1ib"]
+shading_mode = 0
+disable_fog = true
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_16d1p"]
+material = SubResource("ORMMaterial3D_nd1ib")
+radius = 0.082
+height = 0.45
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oy8pt"]
+radius = 0.09277344
+height = 0.52075195
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oy8pt"]
+radius = 0.32417452
+
+[node name="MolotovProjectile" type="RigidBody3D" unique_id=2016807815 node_paths=PackedStringArray("coll_area")]
+collision_layer = 4
+collision_mask = 4
+mass = 5.0
+script = ExtResource("1_hvxbs")
+coll_area = NodePath("HitDetection")
+metadata/_custom_type_script = "uid://bjsvbv5sif78q"
+
+[node name="TempCapsuleMesh" type="MeshInstance3D" parent="." unique_id=882380383]
+mesh = SubResource("CapsuleMesh_16d1p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1862420359]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005004883, 0)
+shape = SubResource("CapsuleShape3D_oy8pt")
+
+[node name="HitDetection" type="Area3D" parent="." unique_id=196071383]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitDetection" unique_id=1505030855]
+shape = SubResource("SphereShape3D_oy8pt")

@@ -13,7 +13,6 @@ func _ready() -> void:
 
 
 func spawn() -> void:
-	print("spawned")
 	var sample:float = spawn_path.curve.get_baked_length() * randf()
 	var pos:Vector3 = spawn_path.curve.sample_baked(sample) + global_position
 	var inst:Node3D = scene.instantiate()

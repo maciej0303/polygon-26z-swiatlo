@@ -6,9 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://ct7l17g8vyib" path="res://temp/Birch1.png" id="2_jn6rs"]
 [ext_resource type="Texture2D" uid="uid://dh15wqhat4fdg" path="res://temp/Birch1_n.png" id="3_xg2j5"]
 [ext_resource type="Script" uid="uid://ceinscvhqwwf1" path="res://MovementTest/Player/player_camera.gd" id="5_ogpyc"]
-[ext_resource type="PackedScene" uid="uid://qsnmf21j2uk6" path="res://MovementTest/FlashLight/flash_light.tscn" id="6_ogpyc"]
+[ext_resource type="PackedScene" uid="uid://qsnmf21j2uk6" path="res://Items/FlashLight/flash_light.tscn" id="6_ogpyc"]
+[ext_resource type="Script" uid="uid://ct2n802a747ki" path="res://Items/Projectile/projectile_spawner.gd" id="7_ojbi6"]
 [ext_resource type="Script" uid="uid://ddhiww4cshta4" path="res://spawner.gd" id="7_p7plr"]
+[ext_resource type="PackedScene" uid="uid://bq2xlqxa7ca08" path="res://Items/Molotov/molotov_projectile.tscn" id="8_dpkva"]
 [ext_resource type="PackedScene" uid="uid://cjea2s12hnuwu" path="res://Enemies/test_enemy.tscn" id="8_wgoyd"]
+[ext_resource type="Script" uid="uid://do8mkcq02q2mn" path="res://Items/Projectile/projectile_hit_handler.gd" id="9_al7ao"]
+[ext_resource type="PackedScene" uid="uid://ci62q7ag51g0d" path="res://Items/Molotov/molotov_on_hit.tscn" id="10_ojbi6"]
 [ext_resource type="Shader" uid="uid://kqyw3tgeb412" path="res://MovementTest/Player/vignette.gdshader" id="10_r4mkw"]
 [ext_resource type="Script" uid="uid://ccdp4v2ekah2g" path="res://MovementTest/Player/hurt_vignette.gd" id="11_etlyl"]
 
@@ -31,7 +35,7 @@ ssao_enabled = true
 ssao_radius = 4.15
 ssao_intensity = 1.03
 glow_enabled = true
-glow_bloom = 0.03
+glow_bloom = 0.02
 glow_hdr_threshold = 0.9
 glow_hdr_scale = 0.9
 fog_enabled = true
@@ -76,6 +80,11 @@ orientation = 2
 [sub_resource type="Curve" id="Curve_p7plr"]
 _data = [Vector2(0, 0), 0.0, 4.3080363, 0, 0, Vector2(0.3316062, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.3275845, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="Resource" id="Resource_16d1p"]
+script = ExtResource("9_al7ao")
+spawn_scene = ExtResource("10_ojbi6")
+metadata/_custom_type_script = "uid://do8mkcq02q2mn"
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_p7plr"]
 transparency = 2
@@ -136,8 +145,8 @@ shader_parameter/max_alpha = 0.274000013015
 metadata/_edit_lock_ = true
 
 [node name="EditorLight" type="OmniLight3D" parent="." unique_id=721813789]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.82, 0)
-editor_only = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.82, 23.8)
+visible = false
 omni_range = 4096.0
 omni_attenuation = -1.0
 
@@ -154,6 +163,9 @@ environment = SubResource("Environment_xg2j5")
 
 [node name="Floor" type="CSGBox3D" parent="." unique_id=297022076]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+use_collision = true
+collision_layer = 4
+collision_mask = 0
 size = Vector3(60, 1, 60)
 material = SubResource("ORMMaterial3D_16d1p")
 
@@ -175,6 +187,7 @@ curve = SubResource("Curve3D_1lu3o")
 metadata/_edit_group_ = true
 
 [node name="BaseCollider" type="Area3D" parent="Floor/Spawner/EnemyTarget" unique_id=1797604326]
+collision_layer = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Spawner/EnemyTarget/BaseCollider" unique_id=840371160]
@@ -230,6 +243,13 @@ scale_amount_curve = SubResource("Curve_p7plr")
 
 [node name="FlashLight" parent="Floor/PlayerMovementPath/Player/CameraOff/Camera3D" unique_id=1239031008 instance=ExtResource("6_ogpyc")]
 transform = Transform3D(0.99904823, 0, 0.04361931, 0, 1, 0, -0.04361931, 0, 0.99904823, 0.255, -0.18, -1.13)
+
+[node name="ProjectileSpawner" type="Node3D" parent="Floor/PlayerMovementPath/Player/CameraOff/Camera3D" unique_id=2070744041 node_paths=PackedStringArray("projectile_parent")]
+script = ExtResource("7_ojbi6")
+projectile_scene = ExtResource("8_dpkva")
+on_hit = SubResource("Resource_16d1p")
+projectile_parent = NodePath("../../../../../..")
+metadata/_custom_type_script = "uid://ct2n802a747ki"
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Floor/PlayerMovementPath/Player" unique_id=974143357]
 light_color = Color(1, 0.688, 0.22000003, 1)

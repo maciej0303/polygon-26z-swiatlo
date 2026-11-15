@@ -46,11 +46,16 @@ func damage(ctx:DamageContext) -> void:
 	if damage_taken >= 1.0:  return
 	damage_taken += ctx.strength
 	damage_taken = clampf(damage_taken, 0.0, 1.0)
-	
+	# TODO, maybe limit fire dmg per frame? in case player puts bajilion molotovs in one spot
 	mesh.update_burn(remap(damage_taken, 0.0, 1.0, 0.0, 0.4)) # imo dla 0.4 starczy, nie musi do 1.0 isc
 	
 	if damage_taken >= 1.0:
 		# smierc
+		var dis:Callable = func() -> void:
+			collision_layer = 0
+			collision_mask = 0
+		dis.call_deferred()
+		
 		var t:Tween = create_tween().set_parallel()
 		t.tween_method(mesh.update_destroy, 0.0, 1.0, 0.4)
 		t.finished.connect(queue_free)

@@ -28,6 +28,12 @@ window/stretch/aspect="expand"
 
 EnemyTarget=""
 
+[layer_names]
+
+3d_physics/layer_1="Enemies"
+3d_physics/layer_2="Base"
+3d_physics/layer_3="Ground"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
